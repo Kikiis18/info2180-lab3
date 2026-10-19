@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const squares = document.querySelectorAll("#board > div");
   const gameState = Array(squares.length).fill(null);
   const status = document.querySelector("#status");
+  const initialStatus = status.textContent;
+  const newGameButton = document.querySelector(".controls .btn");
   const winningCombinations = [
     [0, 1, 2],
     [3, 4, 5],
@@ -14,6 +16,19 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
   let currentPlayer = "X";
   let gameOver = false;
+
+  newGameButton.addEventListener("click", function () {
+    squares.forEach(function (square, index) {
+      gameState[index] = null;
+      square.textContent = "";
+      square.classList.remove("X", "O");
+    });
+
+    currentPlayer = "X";
+    gameOver = false;
+    status.textContent = initialStatus;
+    status.classList.remove("you-won");
+  });
 
   squares.forEach(function (square, index) {
     square.classList.add("square");
